@@ -3,5 +3,5 @@
 namespace Home\Model;
 use Think\Model;
 class CompReserveModel extends Model {
-	protected $tablePrefix = 'tb_'; 
+	// protected $tablePrefix = 'tb_'; 
 }

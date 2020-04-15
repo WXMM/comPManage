@@ -96,12 +96,8 @@
 
 						      <label for="type" class="col-sm-1 control-label">器件类型</label>
 						      <div class="col-sm-3">
-						         <select class="form-control" name="type">
-						            <option>类型1</option>
-						            <option>类型2</option>
-						            <option>3</option>
-						            <option>4</option>
-						            <option>5</option>
+						   		 <select class="form-control" name="type">
+						         	<?php if(is_array($dicConnecttype)): $i = 0; $__LIST__ = $dicConnecttype;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
 						         </select>
 						      </div>
 
@@ -150,24 +146,14 @@
 						      <label for="producer" class="col-sm-1 control-label">生产厂家</label>
 						      <div class="col-sm-3">
 						         <select class="form-control" name="producer">
-						            <option>1</option>
-						            <option>2</option>
-						            <option>3</option>
-						            <option>4</option>
-						            <option>5</option>
+						            <?php if(is_array($dicProducer)): $i = 0; $__LIST__ = $dicProducer;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>" data-linkman="<?php echo ($vo["mark"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
 						         </select>
 						      </div>
 
-						      <label for="producer_linkman" class="col-sm-1 control-label">联系人</label>
+						      <label for="producer_linkman" class="col-sm-1 control-label">联系方式</label>
 						      <div class="col-sm-3">
 						         <input type="text" class="form-control" name="producer_linkman" 
-						               placeholder="请输入联系人">
-						      </div>
-
-						      <label for="producer_linkman_phone" class="col-sm-1 control-label">联系电话</label>
-						      <div class="col-sm-3">
-						         <input type="text" class="form-control" name="producer_linkman_phone" 
-						               placeholder="请输入联系人电话">
+						               placeholder="">
 						      </div>
 						   </div>
 						   
@@ -241,8 +227,8 @@
         </tr>
     </thead>
     <tbody>
-    	<?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-            	<td><?php echo ($vo["id"]); ?></td>
+    	<?php if(is_array($data)): $k = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($k % 2 );++$k;?><tr>
+            	<td><?php echo ($k); ?></td>
             	<td><?php echo ($vo["type"]); ?></td>
             	<td><?php echo ($vo["name"]); ?></td>
             	<td><?php echo ($vo["standard"]); ?></td>
@@ -260,6 +246,11 @@
 </body>
 <script type="text/javascript" charset="utf8" src="/Public/js/jquery.form.min.js"></script>
 <script type="text/javascript">
+
+	//选取默认select及对应选项
+	var linkman=$("#compAddForm select[name='producer']").find("option:selected").data("linkman");
+	$("#compAddForm input[name='producer_linkman']").val(linkman);
+
 	$("#compAddForm").ajaxForm({
       beforeSubmit:  function showRequest(){
           if(confirm("确认新增？")){}
@@ -269,6 +260,12 @@
           location.reload();
       }
    })
+
+
+	$("#compAddForm select[name='producer']").change(function(){
+		var linkman=$(this).find("option:selected").data("linkman");
+		$("#compAddForm input[name='producer_linkman']").val(linkman);
+	});
 
 </script>
 </html>

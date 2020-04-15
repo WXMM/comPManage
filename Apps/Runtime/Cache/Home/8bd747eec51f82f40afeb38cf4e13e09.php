@@ -1,11 +1,11 @@
-<html>
+<?php if (!defined('THINK_PATH')) exit();?><html>
 <head>
 
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/other/bootstrap-3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/datatables.min.css">
-<script src="__PUBLIC__/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" charset="utf8" src="__PUBLIC__/other/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" charset="utf8" src="__PUBLIC__/js/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/other/bootstrap-3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/Public/css/datatables.min.css">
+<script src="/Public/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" charset="utf8" src="/Public/other/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" charset="utf8" src="/Public/js/datatables.min.js"></script>
 <style>
 	#toolBarMenu {
 		margin-bottom: 20px;
@@ -44,6 +44,14 @@
 
 	        }
     	});
+
+    	
+
+    	$("#compList tbody .readBtn").click(function(){
+    		var id = $(this).parent().attr("data-id");
+    		$('#readDtaFrame').attr('src',"<?php echo U('Home/Manage/readComp/id/"+id+"');?>");
+    		$('#myModal').modal("show");
+ 		 });
 	    
 	} );
 	
@@ -52,25 +60,26 @@
 <body>
 <ul class="breadcrumb" style="background-color:#FFFFFF;padding-left:0px">
     <li><a href="#">字典管理</a></li>
-    <li><a href="#">字典类型列表</a></li>
-
+    <li><a href="<?php echo U('Manage/dicManage');?>">字典类型列表</a></li>
+    <li><a href="#"><?php echo ($dataDic[0]["name"]); ?></a></li>
 </ul>
 
 <div id="toolBarMenu">
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDataModal">新增数据</button>
 	<!-- 模态框（Modal） -->
-	<form class="form-horizontal" role="form" id="dicAddForm" method="post" action="{:U('Manage/addDic')}">
+	<form class="form-horizontal" role="form" id="dicAddForm" method="post" action="<?php echo U('Manage/addDicDetail');?>">
 		<div class="modal fade" id="addDataModal" tabindex="-1" role="dialog" aria-labelledby="addDataModalLable" aria-hidden="true">
 		    <div class="modal-dialog" style="width:50%">
 		        <div class="modal-content">
 		            <div class="modal-header">
 		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                <h4 class="modal-title" id="addDataModalLable">新增字典类型</h4>
+		                <h4 class="modal-title" id="addDataModalLable">新增<?php echo ($dataDic[0]["name"]); ?></h4>
 		            </div>
 		            <div class="modal-body">					   				   
 						   <div class="form-group" style="margin-top:20px">
-						      <label for="tname" class="col-sm-2 control-label">字典类型</label>
+						      <label for="tname" class="col-sm-2 control-label"><?php echo ($dataDic[0]["name"]); ?></label>
 						      <div class="col-sm-9">
+						      	<input type="hidden"  name="pid"  value="<?php echo ($dataDic[0]["id"]); ?>">
 						         <input type="text" class="form-control" name="name" 
 						               placeholder="请输入字典名称" >
 						      </div>
@@ -93,21 +102,21 @@
 		</div>
 	</form>
 
-	<form class="form-horizontal" role="form" id="dicEditForm" method="post" action="{:U('Manage/editDic')}">
+	<form class="form-horizontal" role="form" id="dicEditForm" method="post" action="<?php echo U('Manage/editDicDetail');?>">
 		<div class="modal fade" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="editDataModalLable" aria-hidden="true">
 		    <div class="modal-dialog" style="width:50%">
 		        <div class="modal-content">
 		            <div class="modal-header">
 		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                <h4 class="modal-title" id="editDataModalLable">修改字典类型</h4>
+		                <h4 class="modal-title" id="editDataModalLable">修改<?php echo ($dataDic[0]["name"]); ?></h4>
 		            </div>
 		            <div class="modal-body">					   				   
 						   <div class="form-group" style="margin-top:20px">
-						      <label for="tname" class="col-sm-2 control-label">字典类型</label>
+						      <label for="tname" class="col-sm-2 control-label"><?php echo ($dataDic[0]["name"]); ?></label>
 						      <div class="col-sm-9">
 						      	<input type="hidden"  name="id"  value="">
 						        <input type="text" class="form-control" name="name" 
-						               placeholder="请输入字典名称" >
+						               placeholder="请输入<?php echo ($dataDic[0]["name"]); ?>" >
 						      </div>
 						   </div>
 
@@ -139,26 +148,24 @@
         </tr>
     </thead>
     <tbody>
-    	<volist name="data" id="vo">
-    		<tr>
-            	<td>{$vo.id}</td>
-            	<td>{$vo.name}</td>
-            	<td>{$vo.mark}</td>
-            	<td style="width:20%" class="handleCol" data-id="{$vo.id}" data-name="{$vo.name}" data-mark="{$vo.mark}">
-            		<button type="button" class="btn btn-info btn-sm editValBtn">编辑值</button>
+    	<?php if(is_array($data)): $k = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($k % 2 );++$k;?><tr>
+            	<td><?php echo ($k); ?></td>
+            	<td><?php echo ($vo["name"]); ?></td>
+            	<td><?php echo ($vo["mark"]); ?></td>
+            	<td style="width:20%" class="handleCol" data-id="<?php echo ($vo["id"]); ?>" data-name="<?php echo ($vo["name"]); ?>" data-mark="<?php echo ($vo["mark"]); ?>">
+            		<!-- <button type="button" class="btn btn-info btn-sm readBtn">编辑值</button> -->
             		<button type="button" class="btn btn-info btn-sm editBtn">修改</button>
             		<button type="button" class="btn btn-info btn-sm delBtn">删除</button>
             	</td>
-        	</tr>
-		</volist>
+        	</tr><?php endforeach; endif; else: echo "" ;endif; ?>
     </tbody>
 </table>
 </body>
-<script type="text/javascript" charset="utf8" src="__PUBLIC__/js/jquery.form.min.js"></script>
+<script type="text/javascript" charset="utf8" src="/Public/js/jquery.form.min.js"></script>
 <script type="text/javascript">
 	$("#dicAddForm").ajaxForm({
       beforeSubmit:  function showRequest(){
-          if(confirm("确认新增？")){}
+          // if(confirm("确认新增？")){}
       },  // 提交前
       success: function showResponse(data){
           alert(data.msg);
@@ -168,7 +175,7 @@
 
     $("#dicEditForm").ajaxForm({
       beforeSubmit:  function showRequest(){
-          if(confirm("确认修改？")){}
+          // if(confirm("确认修改？")){}
       },  // 提交前
       success: function showResponse(data){
           alert(data.msg);
@@ -190,16 +197,11 @@
 	$("#compList tbody .delBtn").click(function(){
         if(confirm("是否确认删除？")){
             var id=$(this).parents().attr("data-id");
-            $.post("{:U('Manage/delDic')}",{id:id},function(data){
+            $.post("<?php echo U('Manage/delDicDetail');?>",{id:id},function(data){
                 alert(data.msg);
                 location.reload();
             },"JSON")
         }
     })
-
-    $("#compList tbody .editValBtn").click(function(){
-		var pid = $(this).parent().attr("data-id");
-		window.location.href = "{:U('Home/Manage/dicManageDetail/pid/"+pid+"')}";
-	});
 </script>
 </html>

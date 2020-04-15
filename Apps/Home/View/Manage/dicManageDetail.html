@@ -44,6 +44,14 @@
 
 	        }
     	});
+
+    	
+
+    	$("#compList tbody .readBtn").click(function(){
+    		var id = $(this).parent().attr("data-id");
+    		$('#readDtaFrame').attr('src',"{:U('Home/Manage/readComp/id/"+id+"')}");
+    		$('#myModal').modal("show");
+ 		 });
 	    
 	} );
 	
@@ -52,25 +60,26 @@
 <body>
 <ul class="breadcrumb" style="background-color:#FFFFFF;padding-left:0px">
     <li><a href="#">字典管理</a></li>
-    <li><a href="#">字典类型列表</a></li>
-
+    <li><a href="{:U('Manage/dicManage')}">字典类型列表</a></li>
+    <li><a href="#">{$dataDic[0].name}</a></li>
 </ul>
 
 <div id="toolBarMenu">
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDataModal">新增数据</button>
 	<!-- 模态框（Modal） -->
-	<form class="form-horizontal" role="form" id="dicAddForm" method="post" action="{:U('Manage/addDic')}">
+	<form class="form-horizontal" role="form" id="dicAddForm" method="post" action="{:U('Manage/addDicDetail')}">
 		<div class="modal fade" id="addDataModal" tabindex="-1" role="dialog" aria-labelledby="addDataModalLable" aria-hidden="true">
 		    <div class="modal-dialog" style="width:50%">
 		        <div class="modal-content">
 		            <div class="modal-header">
 		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                <h4 class="modal-title" id="addDataModalLable">新增字典类型</h4>
+		                <h4 class="modal-title" id="addDataModalLable">新增{$dataDic[0].name}</h4>
 		            </div>
 		            <div class="modal-body">					   				   
 						   <div class="form-group" style="margin-top:20px">
-						      <label for="tname" class="col-sm-2 control-label">字典类型</label>
+						      <label for="tname" class="col-sm-2 control-label">{$dataDic[0].name}</label>
 						      <div class="col-sm-9">
+						      	<input type="hidden"  name="pid"  value="{$dataDic[0].id}">
 						         <input type="text" class="form-control" name="name" 
 						               placeholder="请输入字典名称" >
 						      </div>
@@ -93,21 +102,21 @@
 		</div>
 	</form>
 
-	<form class="form-horizontal" role="form" id="dicEditForm" method="post" action="{:U('Manage/editDic')}">
+	<form class="form-horizontal" role="form" id="dicEditForm" method="post" action="{:U('Manage/editDicDetail')}">
 		<div class="modal fade" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="editDataModalLable" aria-hidden="true">
 		    <div class="modal-dialog" style="width:50%">
 		        <div class="modal-content">
 		            <div class="modal-header">
 		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                <h4 class="modal-title" id="editDataModalLable">修改字典类型</h4>
+		                <h4 class="modal-title" id="editDataModalLable">修改{$dataDic[0].name}</h4>
 		            </div>
 		            <div class="modal-body">					   				   
 						   <div class="form-group" style="margin-top:20px">
-						      <label for="tname" class="col-sm-2 control-label">字典类型</label>
+						      <label for="tname" class="col-sm-2 control-label">{$dataDic[0].name}</label>
 						      <div class="col-sm-9">
 						      	<input type="hidden"  name="id"  value="">
 						        <input type="text" class="form-control" name="name" 
-						               placeholder="请输入字典名称" >
+						               placeholder="请输入{$dataDic[0].name}" >
 						      </div>
 						   </div>
 
@@ -139,13 +148,13 @@
         </tr>
     </thead>
     <tbody>
-    	<volist name="data" id="vo">
+    	<volist name="data" id="vo" key="k">
     		<tr>
-            	<td>{$vo.id}</td>
+            	<td>{$k}</td>
             	<td>{$vo.name}</td>
             	<td>{$vo.mark}</td>
             	<td style="width:20%" class="handleCol" data-id="{$vo.id}" data-name="{$vo.name}" data-mark="{$vo.mark}">
-            		<button type="button" class="btn btn-info btn-sm editValBtn">编辑值</button>
+            		<!-- <button type="button" class="btn btn-info btn-sm readBtn">编辑值</button> -->
             		<button type="button" class="btn btn-info btn-sm editBtn">修改</button>
             		<button type="button" class="btn btn-info btn-sm delBtn">删除</button>
             	</td>
@@ -158,7 +167,7 @@
 <script type="text/javascript">
 	$("#dicAddForm").ajaxForm({
       beforeSubmit:  function showRequest(){
-          if(confirm("确认新增？")){}
+          // if(confirm("确认新增？")){}
       },  // 提交前
       success: function showResponse(data){
           alert(data.msg);
@@ -168,7 +177,7 @@
 
     $("#dicEditForm").ajaxForm({
       beforeSubmit:  function showRequest(){
-          if(confirm("确认修改？")){}
+          // if(confirm("确认修改？")){}
       },  // 提交前
       success: function showResponse(data){
           alert(data.msg);
@@ -190,16 +199,11 @@
 	$("#compList tbody .delBtn").click(function(){
         if(confirm("是否确认删除？")){
             var id=$(this).parents().attr("data-id");
-            $.post("{:U('Manage/delDic')}",{id:id},function(data){
+            $.post("{:U('Manage/delDicDetail')}",{id:id},function(data){
                 alert(data.msg);
                 location.reload();
             },"JSON")
         }
     })
-
-    $("#compList tbody .editValBtn").click(function(){
-		var pid = $(this).parent().attr("data-id");
-		window.location.href = "{:U('Home/Manage/dicManageDetail/pid/"+pid+"')}";
-	});
 </script>
 </html>
