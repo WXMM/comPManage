@@ -32,8 +32,8 @@
 
       <label for="type" class="col-sm-1 control-label">器件类型</label>
       <div class="col-sm-3">
-         <select class="form-control" name="type">
-            <?php if(is_array($dicConnecttype)): $i = 0; $__LIST__ = $dicConnecttype;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option ><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+         <select class="form-control type" name="type" data-typecomp="<?php echo ($data[0]["type"]); ?>">
+            <?php if(is_array($dicConnecttype)): $i = 0; $__LIST__ = $dicConnecttype;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
          </select>
       </div>
 
@@ -82,15 +82,15 @@
    <div class="form-group">
       <label for="producer" class="col-sm-1 control-label">生产厂家</label>
       <div class="col-sm-3">
-         <select class="form-control" name="producer" data-producer="<?php echo ($data[0]["producer"]); ?>">
-            <?php if(is_array($dicProducer)): $i = 0; $__LIST__ = $dicProducer;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option  value="<?php echo ($vo["name"]); ?>" data-linkman="<?php echo ($vo["mark"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+         <select class="form-control producer" name="producer" data-producer="<?php echo ($data[0]["producer"]); ?>">
+            <?php if(is_array($dicProducer)): $i = 0; $__LIST__ = $dicProducer;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option  value="<?php echo ($vo["id"]); ?>" data-linkman="<?php echo ($vo["mark"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
          </select>
       </div>
 
       <label for="producer_linkman" class="col-sm-1 control-label">联系方式</label>
       <div class="col-sm-3">
-         <input type="text" class="form-control" name="producer_linkman" 
-               placeholder="请输入联系人" value="<?php echo ($data[0]["producer_linkman"]); ?>">
+         <input type="text" class="form-control producer_linkman" name="producer_linkman" 
+               placeholder="请输入联系方式" value="<?php echo ($data[0]["producer_linkman"]); ?>">
       </div>
    </div>
    
@@ -123,7 +123,9 @@
 <script>
    $("#compEditForm").ajaxForm({
       beforeSubmit:  function showRequest(){
-          if(confirm("确认修改？")){}
+          if(confirm("确认修改？")){
+            
+          }
       },  // 提交前
       success: function showResponse(data){
           alert(data.msg);
@@ -131,13 +133,18 @@
       }
    })
 
-   var data_producer = $("#compEditForm select[name='producer']").data("producer");
-   $("#compEditForm select[name='producer']").val(data_producer);
-   var linkman=$("#compEditForm select[name='producer']").find("option:selected").data("linkman");
-   $("#compEditForm input[name='producer_linkman']").val(linkman);
-   $("#compEditForm select[name='producer']").change(function(){
+   //初始化下拉选框
+   var typeCom = $("#compEditForm .type").data("typecomp");
+   $("#compEditForm .type option[value='"+typeCom+"']").attr("selected","selected");
+   var data_producer = $("#compEditForm .producer").data("producer");
+   $("#compEditForm .producer option[value='"+data_producer+"']").attr("selected","selected");
+   var linkman=$("#compEditForm .producer").find("option:selected").data("linkman");
+   $("#compEditForm .producer_linkman").val(linkman);
+
+
+   $("#compEditForm .producer").change(function(){
       var linkman=$(this).find("option:selected").data("linkman");
-      $("#compEditForm input[name='producer_linkman']").val(linkman);
+      $("#compEditForm .producer_linkman").val(linkman);
    });
 
 </script>

@@ -1,0 +1,243 @@
+[ 2020-05-06T10:59:15+08:00 ] ::1 /
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000040s ]
+INFO: [ app_init ] --END-- [ RunTime:0.025043s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.030488s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.030701s ]
+
+[ 2020-05-06T10:59:15+08:00 ] ::1 /index.php/Home/Index/loginIndex.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000038s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000630s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000790s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000970s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001027s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001237s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.204334s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.204559s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.033132s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.033395s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.021852s ]
+INFO: [ app_end ] --END-- [ RunTime:0.022190s ]
+
+[ 2020-05-06T10:59:19+08:00 ] ::1 /index.php/Home/Index/check_user
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000028s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000467s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000550s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000664s ]
+SQL: SHOW COLUMNS FROM `tb_user` [ RunTime:0.0347s ]
+SQL: SELECT * FROM `tb_user` WHERE `username` = 'wx' LIMIT 1   [ RunTime:0.0062s ]
+
+[ 2020-05-06T10:59:19+08:00 ] ::1 /index.php/Home/Index/check_user.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000441s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000573s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000681s ]
+SQL: SHOW COLUMNS FROM `tb_user` [ RunTime:0.0066s ]
+SQL: SELECT * FROM `tb_user` WHERE `username` = 'wx' LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2020-05-06T10:59:19+08:00 ] ::1 /index.php/Home/Index/mainIndex.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000027s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000474s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000619s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000762s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000109s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000261s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.057270s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.057439s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000957s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001127s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001535s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001737s ]
+
+[ 2020-05-06T10:59:19+08:00 ] ::1 /index.php/Home/Index/compMain.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000077s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001421s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001103s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001428s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000105s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000310s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.065615s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.065823s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000535s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000676s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000732s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000871s ]
+
+[ 2020-05-06T10:59:19+08:00 ] ::1 /index.php/Home/Manage/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000033s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000532s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001141s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001356s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000092s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000266s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.028394s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.028577s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000514s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000651s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000724s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000878s ]
+
+[ 2020-05-06T10:59:21+08:00 ] ::1 /index.php/Home/Manage/compManage.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000385s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000995s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001158s ]
+SQL: SHOW COLUMNS FROM `tb_dic_manage` [ RunTime:0.0167s ]
+SQL: SELECT * FROM `tb_dic_manage` WHERE `pid` = 1  [ RunTime:0.0011s ]
+SQL: SELECT * FROM `tb_dic_manage` WHERE `pid` = 3  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `tb_comp_reserve` [ RunTime:0.0132s ]
+SQL: SELECT * FROM `tb_comp_reserve`  [ RunTime:0.0008s ]
+NOTIC: [2] Missing argument 3 for Home\Controller\ManageController::storeManage(), called in D:\wamp\www\Apps\Home\Controller\ManageController.class.php on line 34 and defined D:\wamp\www\Apps\Home\Controller\ManageController.class.php 第 430 行.
+SQL: SHOW COLUMNS FROM `tb_comp_reserve` [ RunTime:0.0067s ]
+SQL: SELECT `store_num` FROM `tb_comp_reserve` WHERE `id` = 0 LIMIT 1   [ RunTime:0.0007s ]
+NOTIC: [8] Undefined variable: mode D:\wamp\www\Apps\Home\Controller\ManageController.class.php 第 435 行.
+SQL: UPDATE `tb_comp_reserve` SET `store_num`='-1' WHERE `id` = 0 [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000190s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000318s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.091481s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.091598s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000379s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000480s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000861s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001060s ]
+
+[ 2020-05-06T10:59:22+08:00 ] ::1 /index.php/Home/Manage/compOut.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000344s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000460s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000557s ]
+SQL: SHOW COLUMNS FROM `tb_comp_out` [ RunTime:0.0169s ]
+SQL: SELECT * FROM `tb_comp_out` ORDER BY `date` desc  [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `tb_comp_reserve` [ RunTime:0.0087s ]
+SQL: SELECT * FROM `tb_comp_reserve`  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tb_dic_manage` [ RunTime:0.0093s ]
+SQL: SELECT * FROM `tb_dic_manage` WHERE `pid` = 1  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `tb_dic_manage` WHERE `pid` = 3  [ RunTime:0.0001s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000105s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000235s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.071377s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.071486s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000389s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000485s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000505s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000609s ]
+
+[ 2020-05-06T10:59:23+08:00 ] ::1 /index.php/Home/Manage/compIn.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000414s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000521s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000622s ]
+SQL: SHOW COLUMNS FROM `tb_comp_in` [ RunTime:0.0171s ]
+SQL: SELECT * FROM `tb_comp_in`  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `tb_comp_reserve` [ RunTime:0.0115s ]
+SQL: SELECT `type`,`name`,`standard`,`store_num`,`project_pact`,`comp_pact` FROM `tb_comp_reserve` WHERE ( 1=1 AND id='10' ) LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT * FROM `tb_comp_reserve`  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tb_dic_manage` [ RunTime:0.0122s ]
+SQL: SELECT * FROM `tb_dic_manage` WHERE `pid` = 1  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `tb_dic_manage` WHERE `pid` = 3  [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000233s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000511s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.079798s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.079962s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000591s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000706s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000527s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000632s ]
+
+[ 2020-05-06T10:59:24+08:00 ] ::1 /index.php/Home/Manage/compManage.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000402s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000523s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000637s ]
+SQL: SHOW COLUMNS FROM `tb_dic_manage` [ RunTime:0.0068s ]
+SQL: SELECT * FROM `tb_dic_manage` WHERE `pid` = 1  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `tb_dic_manage` WHERE `pid` = 3  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tb_comp_reserve` [ RunTime:0.0060s ]
+SQL: SELECT * FROM `tb_comp_reserve`  [ RunTime:0.0003s ]
+NOTIC: [2] Missing argument 3 for Home\Controller\ManageController::storeManage(), called in D:\wamp\www\Apps\Home\Controller\ManageController.class.php on line 34 and defined D:\wamp\www\Apps\Home\Controller\ManageController.class.php 第 430 行.
+SQL: SHOW COLUMNS FROM `tb_comp_reserve` [ RunTime:0.0064s ]
+SQL: SELECT `store_num` FROM `tb_comp_reserve` WHERE `id` = 0 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined variable: mode D:\wamp\www\Apps\Home\Controller\ManageController.class.php 第 435 行.
+SQL: UPDATE `tb_comp_reserve` SET `store_num`='-1' WHERE `id` = 0 [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000161s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000305s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.071300s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.071426s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000392s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000499s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000786s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000992s ]
+
+[ 2020-05-06T10:59:32+08:00 ] ::1 /index.php/Home/Index/loginIndex.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000402s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000532s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000646s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000102s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000303s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.009816s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009934s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000387s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000491s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000550s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000658s ]
+

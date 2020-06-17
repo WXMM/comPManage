@@ -3,6 +3,8 @@
 
 <link rel="stylesheet" type="text/css" href="/Public/other/bootstrap-3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/Public/css/datatables.min.css">
+<link href="/Public/css/tableList.css" rel="stylesheet">
+<link href="/Public/css/tableDetail.css" rel="stylesheet">
 <script src="/Public/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" charset="utf8" src="/Public/other/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" charset="utf8" src="/Public/js/datatables.min.js"></script>
@@ -17,33 +19,12 @@
 <script type="text/javascript">
 
 	$(document).ready( function () {
-	    $('#compList').DataTable({
-	        "language": {
-	            "sProcessing": "处理中...",
-		        "sLengthMenu": "显示 _MENU_ 项结果",
-		        "sZeroRecords": "没有匹配结果",
-		        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-		        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-		        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-		        "sInfoPostFix": "",
-		        "sSearch": "搜索:",
-		        "sUrl": "",
-		        "sEmptyTable": "表中数据为空",
-		        "sLoadingRecords": "载入中...",
-		        "sInfoThousands": ",",
-		        "oPaginate": {
-		            "sFirst": "首页",
-		            "sPrevious": "上页",
-		            "sNext": "下页",
-		            "sLast": "末页"
-		        },
-		        "oAria": {
-		            "sSortAscending": ": 以升序排列此列",
-		            "sSortDescending": ": 以降序排列此列"
-		        }
-
-	        }
-    	});
+	    $("#filterName").keyup(function(){
+	        $(".research tbody tr")
+	                .hide()
+	                .filter(":contains('"+( $(this).val() )+"')")
+	                .show();
+   		 })
 	    
 	} );
 	
@@ -58,6 +39,11 @@
 
 <div id="toolBarMenu">
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDataModal">新增数据</button>
+
+	<div class="form-group" style="float: right">
+	    <div class="col-sm-12">
+	      <input class="form-control" id="filterName" type="text" value="" placeholder="关键字检索，支持模糊查找...">
+    </div>
 	<!-- 模态框（Modal） -->
 	<form class="form-horizontal" role="form" id="dicAddForm" method="post" action="<?php echo U('Manage/addDic');?>">
 		<div class="modal fade" id="addDataModal" tabindex="-1" role="dialog" aria-labelledby="addDataModalLable" aria-hidden="true">
@@ -129,7 +115,7 @@
 	</form>
 </div>
 
-<table id="compList" class="table table-striped">
+<table id="compList" class="bordered research">
     <thead>
         <tr>
             <th>编号</th>
@@ -139,8 +125,8 @@
         </tr>
     </thead>
     <tbody>
-    	<?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-            	<td><?php echo ($vo["id"]); ?></td>
+    	<?php if(is_array($data)): $k = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($k % 2 );++$k;?><tr>
+            	<td><?php echo ($k); ?></td>
             	<td><?php echo ($vo["name"]); ?></td>
             	<td><?php echo ($vo["mark"]); ?></td>
             	<td style="width:20%" class="handleCol" data-id="<?php echo ($vo["id"]); ?>" data-name="<?php echo ($vo["name"]); ?>" data-mark="<?php echo ($vo["mark"]); ?>">

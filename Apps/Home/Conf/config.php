@@ -16,4 +16,5 @@ return array(
 
 	'DIC_PRODUCERID' => 1,
 	'DIC_CONNECTTYPEID' =>3,
+
 );

@@ -10,14 +10,14 @@
  
 body {
   font-family: Arial;
-  padding: 10px;
   background: #f1f1f1;
 }
  
  
 /* 创建两列 */
 /* Left column */
-.leftcolumn {   
+.leftcolumn {
+  /*border-right: solid;   */
   float: left;
   width: 15%;
   height: 100%;
@@ -27,9 +27,10 @@ body {
 .rightcolumn {
   float: left;
   width: 85%;
-  height: 600px;
+  height: 800px;
   background-color: #f1f1f1;
-  padding-left: 10px;
+  /*border-left: solid;*/
+  /*padding-left: 10px;*/
 }
  
 /* 图像部分 */
@@ -42,7 +43,7 @@ body {
 /* 文章卡片效果 */
 .card {
   background-color: white;
-  padding: 20px;
+  padding-left: 20px;
   /*margin-top: 20px;*/
   height: 100%;
 }
@@ -71,9 +72,12 @@ li a:hover{
 iframe {
 	width: 100%;
 	height: 100%;
+  display: block;
+
 }
  
 /* 列后面清除浮动 */
+
 .row:after {
   content: "";
   display: table;
@@ -114,6 +118,9 @@ iframe {
     $("#logManage").click(function(){
       $('iframe').attr('src',"{:U('Home/Manage/index')}");
     });
+    $("#userManage").click(function(){
+      $('iframe').attr('src',"{:U('Home/Manage/userManage')}");
+    });
 	});
 </script>
 </head>
@@ -128,10 +135,10 @@ iframe {
   <div class="leftcolumn">
     <div class="treeLog card">
 	    <ul>
-		  <li id="compManage"><a><span class="glyphicon glyphicon-lock">  元器件库</a></li>
-		  <li id="compOut"><a><span class="glyphicon glyphicon-export">  出库管理</a></li>
-		  <li id="compIn"><a><span class="glyphicon glyphicon-import"> 入库管理</a></li>
-		  <li id="dicManage"><a><span class="glyphicon glyphicon-th-list"> 字典管理</a></li>
+		  <li id="compManage"><a><span class="glyphicon glyphicon-lock">  元器件库</a></li> 
+		  <li id="compIn"><a><span class="glyphicon glyphicon-import"> 入库管理</a></li> 
+      <li id="compOut"><a><span class="glyphicon glyphicon-export">  出库管理</a></li>
+		  <li id="dicManage"><a><span class="glyphicon glyphicon-th-list"> 字典管理</a></li><li id="userManage"><a><span class="glyphicon glyphicon-user"> 用户管理</a></li>
       <li id="logManage"><a><span class="glyphicon glyphicon-lock"> 操作日志</a></li>
 		</ul>
     </div>

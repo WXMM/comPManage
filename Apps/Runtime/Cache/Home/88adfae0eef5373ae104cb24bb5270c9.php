@@ -3,6 +3,8 @@
 
 <link rel="stylesheet" type="text/css" href="/Public/other/bootstrap-3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/Public/css/datatables.min.css">
+<link href="/Public/css/tableList.css" rel="stylesheet">
+<link href="/Public/css/tableDetail.css" rel="stylesheet">
 <script src="/Public/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" charset="utf8" src="/Public/other/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" charset="utf8" src="/Public/js/datatables.min.js"></script>
@@ -17,44 +19,14 @@
 <script type="text/javascript">
 
 	$(document).ready( function () {
-	    $('#compList').DataTable({
-	        "language": {
-	            "sProcessing": "处理中...",
-		        "sLengthMenu": "显示 _MENU_ 项结果",
-		        "sZeroRecords": "没有匹配结果",
-		        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-		        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-		        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-		        "sInfoPostFix": "",
-		        "sSearch": "搜索:",
-		        "sUrl": "",
-		        "sEmptyTable": "表中数据为空",
-		        "sLoadingRecords": "载入中...",
-		        "sInfoThousands": ",",
-		        "oPaginate": {
-		            "sFirst": "首页",
-		            "sPrevious": "上页",
-		            "sNext": "下页",
-		            "sLast": "末页"
-		        },
-		        "oAria": {
-		            "sSortAscending": ": 以升序排列此列",
-		            "sSortDescending": ": 以降序排列此列"
-		        }
-
-	        }
-    	});
+	   
 
     	$("#compList tbody .editBtn").click(function(){
     		var id = $(this).parent().attr("data-id");
     		window.location.href = "<?php echo U('Home/Manage/compManageEdit/id/"+id+"');?>";
  		 });
 
-    	$("#compList tbody .readBtn").click(function(){
-    		var id = $(this).parent().attr("data-id");
-    		$('#readDtaFrame').attr('src',"<?php echo U('Home/Manage/readComp/id/"+id+"');?>");
-    		$('#myModal').modal("show");
- 		 });
+    	
 
     	$("#compList tbody .delBtn").click(function(){
             if(confirm("是否确认删除？")){
@@ -76,7 +48,23 @@
     <li><a href="#">元器件列表</a></li>
 </ul>
 <div id="toolBarMenu">
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDataModal">新增数据</button>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDataModal">新增元器件</button>
+
+	<button id="importDtaBtn" type="button" class="btn btn-info" >导入数据</button>
+	<button id="choseFileBtn" type="button" class="btn btn-info" >选择导入文档</button>
+	<label id="choseFileLabel">未选择文件</label>
+
+	<form id="importDtaForm" action="<?php echo U('PHPExcel/upload');?>" enctype="multipart/form-data" method="post" style="display:none">
+		<!-- <input type="text" name="name" /> -->
+		<input id="choseFileBtnHide" type="file" name="excelFile" />
+		<input id="importDtaBtnHide" type="submit" value="提交" >
+	</form>
+
+	<div class="form-group" style="float: right">
+	    <div class="col-sm-12">
+	      <input class="form-control" id="filterName" type="text" value="" placeholder="关键字检索，支持模糊查找...">
+    </div>
+
 	<!-- 模态框（Modal） -->
 	<form class="form-horizontal" role="form" id="compAddForm" method="post" action="<?php echo U('Manage/addComp');?>">
 		<div class="modal fade" id="addDataModal" tabindex="-1" role="dialog" aria-labelledby="addDataModalLable" aria-hidden="true">
@@ -97,7 +85,7 @@
 						      <label for="type" class="col-sm-1 control-label">器件类型</label>
 						      <div class="col-sm-3">
 						   		 <select class="form-control" name="type">
-						         	<?php if(is_array($dicConnecttype)): $i = 0; $__LIST__ = $dicConnecttype;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+						         	<?php if(is_array($dicConnecttype)): $i = 0; $__LIST__ = $dicConnecttype;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
 						         </select>
 						      </div>
 
@@ -190,7 +178,8 @@
 	</form>
 </div>
 
-<!-- 模态框（Modal） -->
+<!-- 查看模态框（Modal） -->
+<form class="form-horizontal" role="form" id="compReadForm" method="post" action="">
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="width:90%">
 		<div class="modal-content">
@@ -202,8 +191,99 @@
 					查看元器件
 				</h4>
 			</div>
-			<div class="modal-body">
-				<iframe id="readDtaFrame" frameBorder="0" src="" style="width:100%;height:100%"></iframe>
+			<div class="modal-body">					   				   
+			   <div class="form-group" style="margin-top:20px">
+			      <label for="tname" class="col-sm-1 control-label">器件名称</label>
+			      <div class="col-sm-3">
+			         <input type="text" class="form-control name" name="name" 
+			               placeholder="请输入元器件名称" readonly="readonly">
+			      </div>
+
+			      <label for="type" class="col-sm-1 control-label">器件类型</label>
+			      <div class="col-sm-3">
+			   		 <select class="form-control type" name="type" readonly="readonly">
+			         	<?php if(is_array($dicConnecttype)): $i = 0; $__LIST__ = $dicConnecttype;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+			         </select>
+			      </div>
+
+			      <label for="standard" class="col-sm-1 control-label">器件规格</label>
+			      <div class="col-sm-3">
+			         <input type="text" class="form-control standard" name="standard"
+			               placeholder="请输入元器件规格" readonly="readonly">
+			      </div>
+			   </div>
+
+			   <div class="form-group">
+			      <label for="store_num" class="col-sm-1 control-label">库存数量</label>
+			      <div class="col-sm-3">
+			         <input type="text" class="form-control store_num" name="store_num" placeholder="请输入库存数量" readonly="readonly">
+			      </div>
+
+			      <label for="grade" class="col-sm-1 control-label">质量等级</label>
+			      <div class="col-sm-3">
+			         <input type="text" class="form-control grade" name="grade" 
+			               placeholder="请输入质量等级" readonly="readonly">
+			      </div>
+
+			      <label for="comp_price" class="col-sm-1 control-label">单价(元)</label>
+			      <div class="col-sm-3">
+			         <input type="text" class="form-control comp_price" name="comp_price" 
+			               placeholder="请输入单价" readonly="readonly">
+			      </div>
+
+			   </div>
+
+			   <div class="form-group">
+			      <label for="project_pact" class="col-sm-1 control-label">项目批次</label>
+			      <div class="col-sm-3">
+			         <input type="text" class="form-control project_pact" name="project_pact" 
+			               placeholder="请选择项目批次" readonly="readonly">
+			      </div>
+
+			      <label for="comp_pact" class="col-sm-1 control-label">元器件批次</label>
+			      <div class="col-sm-3">
+			         <input type="text" class="form-control comp_pact" name="comp_pact" 
+			               placeholder="请输入元器件批次" readonly="readonly">
+			      </div>
+
+			   </div>
+			   <div class="form-group">
+			      <label for="producer" class="col-sm-1 control-label">生产厂家</label>
+			      <div class="col-sm-3">
+			         <select class="form-control producer" name="producer" readonly="readonly">
+			            <?php if(is_array($dicProducer)): $i = 0; $__LIST__ = $dicProducer;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>" data-linkman="<?php echo ($vo["mark"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+			         </select>
+			      </div>
+
+			      <label for="producer_linkman" class="col-sm-1 control-label">联系方式</label>
+			      <div class="col-sm-3">
+			         <input type="text" class="form-control producer_linkman" name="producer_linkman" 
+			               placeholder="" readonly="readonly">
+			      </div>
+			   </div>
+			   
+
+			   <div class="form-group">
+			      <label for="bargain_num" class="col-sm-1 control-label">合同编号</label>
+			      <div class="col-sm-3">
+			         <input type="text" class="form-control bargain_num" name="bargain_num" 
+			               placeholder="请输入合同编号" readonly="readonly">
+			      </div>
+
+			      <label for="certification_num" class="col-sm-1 control-label">合格证号</label>
+			      <div class="col-sm-3">
+			         <input type="text" class="form-control certification_num" name="certification_num" 
+			               placeholder="请输入合格证号" readonly="readonly">
+			      </div>
+			   </div>
+
+			   <div class="form-group">
+			      <label for="mark" class="col-sm-1 control-label mark">备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注</label>
+			      <div class="col-sm-11">
+			         <textarea class="form-control mark" rows="3" name="mark" readonly="readonly"></textarea>
+			      </div>
+			      
+			   </div>
             </div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
@@ -212,8 +292,12 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
 </div>
+</form>
 
-<table id="compList" class="table table-striped">
+
+
+
+<table id="compList" class="bordered research">
     <thead>
         <tr>
             <th>编号</th>
@@ -229,7 +313,7 @@
     <tbody>
     	<?php if(is_array($data)): $k = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($k % 2 );++$k;?><tr>
             	<td><?php echo ($k); ?></td>
-            	<td><?php echo ($vo["type"]); ?></td>
+            	<td data-type="$vo.type"><?php if(is_array($dicConnecttype)): $i = 0; $__LIST__ = $dicConnecttype;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$voKid): $mod = ($i % 2 );++$i; if(($voKid["id"]) == $vo["type"]): echo ($voKid["name"]); endif; endforeach; endif; else: echo "" ;endif; ?></td>
             	<td><?php echo ($vo["name"]); ?></td>
             	<td><?php echo ($vo["standard"]); ?></td>
             	<td><?php echo ($vo["store_num"]); ?></td>
@@ -247,6 +331,13 @@
 <script type="text/javascript" charset="utf8" src="/Public/js/jquery.form.min.js"></script>
 <script type="text/javascript">
 
+
+	$("#filterName").keyup(function(){
+        $(".research tbody tr")
+                .hide()
+                .filter(":contains('"+( $(this).val() )+"')")
+                .show();
+    })
 	//选取默认select及对应选项
 	var linkman=$("#compAddForm select[name='producer']").find("option:selected").data("linkman");
 	$("#compAddForm input[name='producer_linkman']").val(linkman);
@@ -259,13 +350,60 @@
           alert(data.msg);
           location.reload();
       }
-   })
+    })
+
+    $("#importDtaForm").ajaxForm({
+      beforeSubmit:  function showRequest(){
+          if(confirm("确认上传数据？")){}
+      },  // 提交前
+      success: function showResponse(data){
+          alert(data.msg);
+          location.reload();
+      }
+    })
 
 
 	$("#compAddForm select[name='producer']").change(function(){
 		var linkman=$(this).find("option:selected").data("linkman");
 		$("#compAddForm input[name='producer_linkman']").val(linkman);
 	});
+
+	$("#compList tbody .readBtn").click(function(){
+		var id = $(this).parent().attr("data-id");
+		$.post("<?php echo U('Manage/readCompDetail');?>",{id:id},function(data){
+	        $("#compReadForm .name").val(data.name);
+	        $("#compReadForm .type option[value='"+data.type+"']").attr("selected","selected");
+	        $("#compReadForm .standard").val(data.standard);
+	        $("#compReadForm .store_num").val(data.store_num);
+	        $("#compReadForm .grade").val(data.grade);
+	        $("#compReadForm .comp_price").val(data.comp_price);
+	        $("#compReadForm .project_pact").val(data.project_pact);
+	        $("#compReadForm .comp_pact").val(data.comp_pact);
+	        $("#compReadForm .producer option[value='"+data.producer+"']").attr("selected","selected");
+	        var producer_linkman = $("#compReadForm .producer option[value='"+data.producer+"']").data("linkman")
+	        $("#compReadForm .producer_linkman").val(producer_linkman);
+	        $("#compReadForm .bargain_num").val(data.bargain_num);
+	        $("#compReadForm .certification_num").val(data.certification_num);
+	        $("#compReadForm .mark").val(data.mark);
+	    },"JSON")
+		$('#myModal').modal("show");
+	});
+
+	$("#choseFileBtn").click(function(){
+		$("#choseFileBtnHide").trigger('click');
+	});
+
+	$("#importDtaBtn").click(function(){
+		$("#importDtaBtnHide").trigger('click');
+	});
+
+	$("#choseFileBtnHide").bind("input propertychange", function() {
+		var fileName = $("#choseFileBtnHide").val();
+		var arrSplit = new Array();
+		arrSplit = fileName.split('\\');
+		$("#choseFileLabel").html(arrSplit.pop());
+	});
+
 
 </script>
 </html>
